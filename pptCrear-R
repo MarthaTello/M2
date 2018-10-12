@@ -1,0 +1,30 @@
+library(ReporteRs)
+library(officer)
+library(magrittr)
+
+
+conte<-"El cuerpo de la diapositiva presenta ésta cantidad de lineas y veamos s acepta el contenido propicio"
+titulo<-"Las verdades necesarias TITULO"
+autor<-"Juan Ruiz Trujillo"
+
+
+ppt <- read_pptx() %>%
+add_slide(layout = "Title and Content", master = "Office Theme") %>%
+  ph_with_text(type = "title", str = titulo)%>%
+  ph_empty(type = "body") %>% 
+ 
+  ph_with_text(type = "body", str = conte)%>%
+  
+  ph_with_text(type = "ftr", str = autor)%>%
+  ph_with_text(type = "sldNum", str = "1")%>%
+  ph_with_text(type = "dt", str = format(Sys.Date()))%>%
+  
+
+  add_slide(layout = "Two Content", master = "Office Theme") %>%
+  ph_with_text(type = "body", str = "body (index 1) is text", index = 1) %>% 
+  ph_with_img(type = "body", src = "/home/walter/proyecto/ppt/un.png", height = 1.06, width = 1.39 )
+
+
+
+  
+print(ppt,target="/home/walter/proyecto/ppt/Ejemplo.pptx")
